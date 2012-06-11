@@ -26,9 +26,8 @@ Just drop that code in an attempt!
 	function(err, result) {
         if (err)
             console.err('Flaky API failed 5 times.');
-        else {
+        else
             doSomething(result);
-        }
     });
 
 ## Details
