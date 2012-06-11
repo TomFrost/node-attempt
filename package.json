@@ -1,0 +1,23 @@
+{
+  "author": "Tom Frost <tom@frosteddesign.com>",
+  "name": "attempt",
+  "description": "Automatically retry functions that fail, in crazily customizable ways.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/TomFrost/node-attempt",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TomFrost/node-attempt.git"
+  },
+  "main": "lib/attempt.js",
+  "scripts": {
+    "test": "mocha -s 150 test"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {
+	  "mocha": ">= 1.1.0",
+	  "should": ">= 0.6.3"
+  }
+}
