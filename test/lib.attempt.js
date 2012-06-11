@@ -89,7 +89,7 @@ describe('Attempt', function() {
 	});
 	it('should wait to retry if onError triggers callback', function(done) {
 		var i = 0;
-		function onError(done) {
+		function onError(err, done) {
 			process.nextTick(function() { i++; done(); });
 		}
 		attempt(function() {
