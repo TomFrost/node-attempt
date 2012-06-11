@@ -10,7 +10,7 @@
   },
   "main": "lib/attempt.js",
   "scripts": {
-    "test": "mocha -s 150 test"
+    "test": "mocha -R spec -s 150 test"
   },
   "engines": {
     "node": "*"
