@@ -111,6 +111,13 @@ it to be observed, call *done(true)*.
 already completed.  This is mostly used by Attempt internally, but can be
 useful for hacking interval times.
 
+#### max
+*Default: Infinity* the maximum timeout to delay the next attempt.
+
+#### random
+*Default: 0* random factor to scale timeout by. `(Math.random() * options.random) + 1`
+setting random to 1 will scale the timeout a random amount between 1 and 2.
+
 ## License
 Attempt is distributed under the MIT license.
 
