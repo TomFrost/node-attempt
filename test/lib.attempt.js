@@ -142,4 +142,16 @@ describe('Attempt', function() {
 			done();
 		});
 	});
+	it('should apply a max delay before next attempt', function(done) {
+		var start = new Date().getTime(),
+			end;
+		attempt(function(attempts) {
+			if (attempts)
+				end = new Date().getTime();
+			this(!attempts);
+		}, { retries: 1, interval: 4000, max: 5 }, function() {
+			(end - start).should.be.below(4000);
+			done();
+		});
+	});
 });
