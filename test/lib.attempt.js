@@ -137,8 +137,8 @@ describe('Attempt', function() {
 			}
 			this('Generic Error');
 		}, { retries: 2, interval: 5, factor: 3 }, function() {
-			(end2 - end1).should.be.above((end1 - start) * 2);
-			(end2 - end1).should.be.below((end1 - start) * 4);
+			(end2 - end1).should.be.above((end1 - start) * 2 - 1);
+			(end2 - end1).should.be.below((end1 - start) * 4 + 1);
 			done();
 		});
 	});
