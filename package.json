@@ -2,7 +2,7 @@
   "author": "Tom Frost <tom@frosteddesign.com>",
   "name": "attempt",
   "description": "Automatically retry functions that fail, in crazily customizable ways.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/TomFrost/node-attempt",
   "repository": {
     "type": "git",
