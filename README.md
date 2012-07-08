@@ -106,17 +106,21 @@ to do something asynchronous to fix the error.
 By default, calling done() will ignore the retry interval.  If you still want
 it to be observed, call *done(true)*.
 
+#### max
+*Default: Infinity* The maximum number of milliseconds to wait before retrying.
+If the interval or factor causes a wait time larger than 'max', 'max' will
+be used.
+
+#### random
+*Default: 0* Scale the wait time by a random factor. Generally, this should be
+a number between 0 (no randomness) and 1 (multiplies the wait time by anything
+from 1 to 2).  For clarity, the wait time for each individual attempt is
+multiplied by `(1 + Math.random() * options.random)`.
+
 #### attempts
 *Default: 0.* The number of attempts to fake Attempt into believing were
 already completed.  This is mostly used by Attempt internally, but can be
 useful for hacking interval times.
-
-#### max
-*Default: Infinity* the maximum timeout to delay the next attempt.
-
-#### random
-*Default: 0* random factor to scale timeout by. `(Math.random() * options.random) + 1`
-setting random to 1 will scale the timeout a random amount between 1 and 2.
 
 ## License
 Attempt is distributed under the MIT license.
