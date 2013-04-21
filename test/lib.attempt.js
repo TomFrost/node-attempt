@@ -123,7 +123,7 @@ describe('Attempt', function() {
 			else
 				this('Generic Error');
 		}, { retries: 1, interval: 20 }, function() {
-			(end - start).should.be.above(19);
+			(end - start).should.be.above(15);
 			done();
 		});
 	});
