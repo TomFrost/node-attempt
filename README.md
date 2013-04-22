@@ -112,10 +112,10 @@ If the interval or factor causes a wait time larger than 'max', 'max' will
 be used.
 
 #### random
-*Default: 0.* Scale the wait time by a random factor. Generally, this should be
-a number between 0 (no randomness) and 1 (multiplies the wait time by anything
-from 1 to 2).  For clarity, the wait time for each individual attempt is
-multiplied by `(1 + Math.random() * options.random)`.
+*Default: 0.* Increase the wait interval by a random factor. Generally, this
+should be a number between 0 (no randomness) and 1 (wait time could double).
+For example, if .5 is used, the interval could be anywhere between 100% and
+150% of its original calculated time.
 
 #### attempts
 *Default: 0.* The number of attempts to fake Attempt into believing were
