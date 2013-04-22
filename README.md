@@ -14,7 +14,7 @@ Whenever you have code that looks like this:
 
 	function flakyApiCall(function(err, result) {
 	    if (err)
-	        console.err('Flaky API died AGAIN!');
+	        console.log('Flaky API died AGAIN!', err);
 	    else
 	        doSomething(result);
 	});
@@ -27,7 +27,7 @@ Just drop that code in an attempt!
 	},
 	function(err, result) {
         if (err)
-            console.err('Flaky API failed 5 times.');
+            console.log('Flaky API failed 5 times.', err);
         else
             doSomething(result);
     });
@@ -60,7 +60,7 @@ giving up and sending the error to the callback.
 		flakyApiCall(this);
 	}, { retries: 15 }, function(err, result) {
 		if (err)
-			console.err('Failed 16 times.');
+			console.log('Failed 16 times.', err);
 		else
 			doSomething(result);
 	});
@@ -72,7 +72,7 @@ giving up and sending the error to the callback.
         flakyApiCall(this);
     }, { interval: 5000 }, function(err, result) {
         if (err)
-            console.err('5 retries * 5 seconds = 25 seconds of failure.');
+            console.log('5 retries * 5 seconds = 25 seconds of failure.', err);
         else
             doSomething(result);
     });
@@ -90,7 +90,7 @@ floats like 1.2 can be used to grow the interval at a slower rate.
 error.  The first argument is the error.
 
 	attempt(function() { flakyApiCall(this); },
-		{ onError: function(err) { console.err(err); } },
+		{ onError: function(err) { console.log(err); } },
 		function(err, result) { /* ... */ });
 
 The second argument, if it exists, is a callback function that will need to be
@@ -107,12 +107,12 @@ By default, calling done() will ignore the retry interval.  If you still want
 it to be observed, call *done(true)*.
 
 #### max
-*Default: Infinity* The maximum number of milliseconds to wait before retrying.
+*Default: Infinity.* The maximum number of milliseconds to wait before retrying.
 If the interval or factor causes a wait time larger than 'max', 'max' will
 be used.
 
 #### random
-*Default: 0* Scale the wait time by a random factor. Generally, this should be
+*Default: 0.* Scale the wait time by a random factor. Generally, this should be
 a number between 0 (no randomness) and 1 (multiplies the wait time by anything
 from 1 to 2).  For clarity, the wait time for each individual attempt is
 multiplied by `(1 + Math.random() * options.random)`.
