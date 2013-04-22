@@ -53,7 +53,7 @@ tryFunc has been run before.
 The following options are set per request:
 
 #### retries
-*Default: 5.* The number of times to retry the tryFunc before
+*Default: 2.* The number of times to retry the tryFunc before
 giving up and sending the error to the callback.
 
 	attempt(function() {
