@@ -22,22 +22,23 @@ Whenever you have code that looks like this:
 Just drop that code in an attempt!
 
 	var attempt = require('attempt');
-	attempt(function() {
-		flakyApiCall(this);
-	},
-	function(err, result) {
-        if (err)
-            console.log('Flaky API failed 5 times.', err);
-        else
-            doSomething(result);
-    });
+	attempt(
+		function() {
+			flakyApiCall(this);
+		},
+		function(err, result) {
+	        if (err)
+	            console.log('Flaky API failed 3 times.', err);
+	        else
+	            doSomething(result);
+	    });
 
 ## Details
 Attempt will re-run your attempted function if it throws an error or if it
 calls back with a non-empty first argument (following the first-arg-is-an-error
 standard Node.js convention).  The function call looks like this:
 
-**attempt(tryFunc, _[options]_, _[callback]_)**
+**attempt(_[options]_, tryFunc, _[callback]_)**
 
 tryFunc is called with one argument: attempts.  It is the number of times the
 tryFunc has been run before.
@@ -56,26 +57,32 @@ The following options are set per request:
 *Default: 2.* The number of times to retry the tryFunc before
 giving up and sending the error to the callback.
 
-	attempt(function() {
-		flakyApiCall(this);
-	}, { retries: 15 }, function(err, result) {
-		if (err)
-			console.log('Failed 16 times.', err);
-		else
-			doSomething(result);
-	});
+	attempt(
+		{ retries: 15 },
+		function() {
+			flakyApiCall(this);
+		},
+		function(err, result) {
+			if (err)
+				console.log('Failed 16 times.', err);
+			else
+				doSomething(result);
+		});
 
 #### interval
 *Default: 0.* The number of milliseconds to wait between attempts.
 
-	attempt(function() {
-        flakyApiCall(this);
-    }, { interval: 5000 }, function(err, result) {
-        if (err)
-            console.log('5 retries * 5 seconds = 25 seconds of failure.', err);
-        else
-            doSomething(result);
-    });
+	attempt(
+		{ interval: 5000 },
+		function() {
+	        flakyApiCall(this);
+	    },
+	    function(err, result) {
+	        if (err)
+	            console.log('5 retries * 5 seconds = 25 seconds of failure.', err);
+	        else
+	            doSomething(result);
+	    });
 
 #### factor
 *Default: 1.* The factor by which the interval should be multiplied per
@@ -89,18 +96,26 @@ floats like 1.2 can be used to grow the interval at a slower rate.
 *Default: null.* Function to call when the tryFunc fails with an
 error.  The first argument is the error.
 
-	attempt(function() { flakyApiCall(this); },
-		{ onError: function(err) { console.log(err); } },
+	attempt(
+		{
+			onError: function(err) {
+				console.log(err);
+			}
+		},
+		function() { flakyApiCall(this); },
 		function(err, result) { /* ... */ });
 
 The second argument, if it exists, is a callback function that will need to be
 called in order for the next attempt to continue.  This is useful if you have
 to do something asynchronous to fix the error.
 
-	attempt(function() { flakyApiCall(this); },
-		{ onError: function(err, done) {
-			log.write(err, done);
-		} },
+	attempt(
+		{
+			onError: function(err, done) {
+        		log.write(err, done);
+        	}
+        },
+        function() { flakyApiCall(this); },
 		function(err, result) { /* ... */ });
 
 By default, calling done() will ignore the retry interval.  If you still want
