@@ -35,10 +35,10 @@ Just drop that code in an attempt!
 
 ## Details
 Attempt will re-run your attempted function if it throws an error or if it
-calls back with a non-empty first argument (following the first-arg-is-an-error
+calls back with a non-falsey first argument (following the first-arg-is-an-error
 standard Node.js convention).  The function call looks like this:
 
-**attempt(_[options]_, tryFunc, _[callback]_)**
+**attempt([options], tryFunc, [callback])**
 
 tryFunc is called with one argument: attempts.  It is the number of times the
 tryFunc has been run before.
@@ -54,8 +54,7 @@ tryFunc has been run before.
 The following options are set per request:
 
 #### retries
-*Default: 2.* The number of times to retry the tryFunc before
-giving up and sending the error to the callback.
+*Default: 2.* The number of times to retry the tryFunc before giving up and sending the error to the callback.
 
 	attempt(
 		{ retries: 15 },
@@ -64,7 +63,7 @@ giving up and sending the error to the callback.
 		},
 		function(err, result) {
 			if (err)
-				console.log('Failed 16 times.', err);
+				console.log('Failed first attempt + 15 retries = 16 failures.', err);
 			else
 				doSomething(result);
 		});
@@ -79,22 +78,22 @@ giving up and sending the error to the callback.
 	    },
 	    function(err, result) {
 	        if (err)
-	            console.log('5 retries * 5 seconds = 25 seconds of failure.', err);
+	            console.log('3 attempts * 5 seconds = 15 seconds of failure.', err);
 	        else
 	            doSomething(result);
 	    });
 
 #### factor
 *Default: 1.* The factor by which the interval should be multiplied per
-attempt.  If set to 2 with an interval of 5, the first retry will execute after
-5 seconds, the second after 10, the third after 20, and so on.
+attempt.  If set to 2 with an interval of 5000, the first retry will execute
+after 5 seconds, the second after 10, the third after 20, and so on.
 
-This allows an exponential retry scheme.  For a smaller gap between retries,
+This allows an exponential back-off scheme.  For a smaller gap between retries,
 floats like 1.2 can be used to grow the interval at a slower rate.
 
 #### onError
-*Default: null.* Function to call when the tryFunc fails with an
-error.  The first argument is the error.
+*Default: null.* Function to call when the tryFunc fails with an error.  The
+first argument is the error.
 
 	attempt(
 		{
