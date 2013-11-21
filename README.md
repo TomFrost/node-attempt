@@ -12,7 +12,7 @@ In your project folder, type:
 ## Usage
 Whenever you have code that looks like this:
 
-	function flakyApiCall(function(err, result) {
+	flakyApiCall(function(err, result) {
 	    if (err)
 	        console.log('Flaky API died AGAIN!', err);
 	    else
@@ -21,17 +21,42 @@ Whenever you have code that looks like this:
 
 Just drop that code in an attempt!
 
-	var attempt = require('attempt');
-	attempt(
-		function() {
-			flakyApiCall(this);
-		},
-		function(err, result) {
-	        if (err)
-	            console.log('Flaky API failed 3 times.', err);
-	        else
-	            doSomething(result);
-	    });
+	  var attempt = require('attempt');
+	  attempt(
+	      function() {
+	          flakyApiCall(this);
+	      },
+	      function(err, result) {
+	          if (err)
+                console.log('Flaky API failed 3 times.', err);
+	          else
+	              doSomething(result);
+	      }
+    );
+
+Sometimes you know an error will repeat itself and you might want to stop
+doing any further attempts:
+
+	  var attempt = require('attempt');
+	  attempt(
+	      function() {
+            var callback = this;
+	          flakyApiCall(function (err, result) {
+                if (err && err.code === 500)
+                    callback.abort(err);
+                else if (err)
+                    callback(err);
+                else
+                    callback(err, result);
+            });
+	      },
+	      function(err, result) {
+	          if (err)
+                console.log('Flaky API failed 3 times.', err);
+	          else
+	              doSomething(result);
+	      }
+    );
 
 ## Details
 Attempt will re-run your attempted function if it throws an error or if it

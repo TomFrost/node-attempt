@@ -200,4 +200,17 @@ describe('Attempt', function() {
 				done();
 			});
 	});
+	it('should stop attempting after an abort', function(done) {
+		var attempts = 0;
+		attempt(
+      function(_) {
+        attempts++;
+				this.abort("fail now!");
+			},
+			function(err) {
+				err.should.eql("fail now!");
+        attempts.should.eql(1);
+				done();
+			});
+	});
 });
