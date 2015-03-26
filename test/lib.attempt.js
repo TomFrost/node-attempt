@@ -200,4 +200,26 @@ describe('Attempt', function() {
 				done();
 			});
 	});
+	it('should not handle throwing in final callback', function(done) {
+		var called = false;
+
+		// replace mocha's uncaughtException handler temporarily
+		var originalException = process.listeners('uncaughtException').pop();
+		//Needed in node 0.10.5+
+		process.removeListener('uncaughtException', originalException);
+		process.once('uncaughtException', function (error) {
+			process.listeners('uncaughtException').push(originalException);
+			done();
+		});
+
+		attempt(
+			function() {
+				this(null, 'success');
+			},
+			function callback(err, success) {
+				if (called) return done(new Error('Already called'));
+				called = true;
+				throw(new Error('Some Error'));
+			});
+	});
 });
