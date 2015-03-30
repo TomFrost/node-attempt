@@ -4,7 +4,7 @@ customizable ways.
 
 ##ChangeLog
 
-### Development
+### v1.0.1
 - Attempt no longer swallows errors in the callback func (nebulade)
 
 ### v1.0.0
