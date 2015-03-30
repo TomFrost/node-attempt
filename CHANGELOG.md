@@ -5,7 +5,7 @@ customizable ways.
 ##ChangeLog
 
 ### Development
-- Attempt no longer swallows errors in the callback func
+- Attempt no longer swallows errors in the callback func (nebulade)
 
 ### v1.0.0
 - Options and tryFunc are now accepted in any order.
