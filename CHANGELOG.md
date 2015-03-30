@@ -4,6 +4,9 @@ customizable ways.
 
 ##ChangeLog
 
+### Development
+- Attempt no longer swallows errors in the callback func
+
 ### v1.0.0
 - Options and tryFunc are now accepted in any order.
 - Default retries is now 2 instead of 5.  If you fail 3 times in a row, you'll probably fail 3 more.
