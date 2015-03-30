@@ -1,8 +1,6 @@
-# Attempt
+# Attempt [![Build Status](https://secure.travis-ci.org/TomFrost/node-attempt.png?branch=master)](http://travis-ci.org/TomFrost/node-attempt) [![Code Climate](https://codeclimate.com/github/TomFrost/node-attempt/badges/gpa.svg)](https://codeclimate.com/github/TomFrost/node-attempt)
 Retries functions that throw or call back with an error, in crazily
 customizable ways.
-
-[![Build Status](https://secure.travis-ci.org/TomFrost/node-attempt.png?branch=master)](http://travis-ci.org/TomFrost/node-attempt)
 
 ## Installation
 In your project folder, type:
