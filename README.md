@@ -52,7 +52,9 @@ tryFunc has been run before.
 The following options are set per request:
 
 #### retries
-*Default: 2.* The number of times to retry the tryFunc before giving up and sending the error to the callback.
+*Default: 2 (for 3 total attempts).* The number of times to retry the tryFunc before giving up and sending the error to the callback.
+The number of total attempts is one more than the number of retries.
+
 
 	attempt(
 		{ retries: 15 },
