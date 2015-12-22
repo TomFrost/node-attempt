@@ -2,6 +2,9 @@ var attempt = require('../lib/attempt.js'),
 	should = require('should');
 
 describe('Attempt', function() {
+	it('should only need a tryFunc', function (done) {
+		attempt(done);
+	});
 	it('should handle successful callbacks', function(done) {
 		attempt(
 			function() {
